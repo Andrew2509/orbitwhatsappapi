@@ -6,12 +6,12 @@
     "version": "1.3.0",
     "contact": {
       "name": "Orbit Support",
-      "url": "https://orbit-whatsapp-api.vercel.app"
+      "url": "https://orbitwaapi.site"
     }
   },
   "servers": [
     {
-      "url": "https://orbit-whatsapp-api.vercel.app/api",
+      "url": "https://orbitwaapi.site/api",
       "description": "Production Server"
     },
     {
@@ -194,7 +194,7 @@
                     "type": "string",
                     "format": "url",
                     "description": "URL gambar yang ingin dikirim (opsional)",
-                    "example": "https://orbit-whatsapp-api.vercel.app/Image/logo-wa-api-black.png"
+                    "example": "https://orbitwaapi.site/Image/logo-wa-api-black.png"
                   },
                   "device_id": {
                     "type": "integer",

@@ -41,7 +41,7 @@ window.Alpine = Alpine;
 
         async checkServiceHealth() {
             // Menggunakan environment Vite jika ada, atau fallback ke Cloudflare Tunnel
-            const baseUrl = import.meta.env.VITE_WHATSAPP_URL || 'https://bot.orbitwaapi.dpdns.org';
+            const baseUrl = import.meta.env.VITE_WHATSAPP_URL || 'https://bot.orbitwaapi.site';
 
             try {
                 const response = await fetch(`${baseUrl}/health`);
@@ -102,17 +102,17 @@ window.Alpine = Alpine;
 
         chooseMethod(method) {
             console.log('Alpine: Choosing method', method, 'for device', this.deviceId);
-            
+
             // Reset state
             this.qrCode = null;
             this.qrError = null;
             this.pairingCode = null;
             this.loading = false;
-            
+
             // Set step
             this.step = method;
             console.log('Alpine: Step updated to', this.step);
-            
+
             if (method === 'qr') {
                 this.fetchQR();
                 this.startPolling();
@@ -159,10 +159,10 @@ window.Alpine = Alpine;
 
         async fetchQR() {
             if (!this.deviceId || this.step !== 'qr') return;
-            
+
             console.log('Alpine: Fetching QR for device', this.deviceId);
             this.qrError = null;
-            
+
             try {
                 const response = await fetch(`/devices/${this.deviceId}/scan`, {
                     method: 'POST',
@@ -171,9 +171,9 @@ window.Alpine = Alpine;
                         'Accept': 'application/json'
                     }
                 });
-                
+
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                
+
                 const data = await response.json();
                 console.log('Alpine: Scan response status:', data.status);
 
@@ -579,7 +579,7 @@ window.toggleFullscreen = function() {
     const container = document.getElementById('scalar-container');
     const iframe = document.getElementById('scalar-iframe');
     const btn = document.getElementById('fullscreen-btn');
-    
+
     if (!container || !iframe || !btn) return;
 
     if (container.classList.contains('fixed')) {

@@ -13,7 +13,7 @@ const io = new Server(server, {
             process.env.WHATSAPP_LARAVEL_URL,
             'https://orbitwaapi.dpdns.org',
             'https://bot.orbitwaapi.dpdns.org',
-            'https://orbit-whatsapp-api.vercel.app',
+            'https://orbitwaapi.site',
             'http://localhost:3000',
             'http://localhost:8000'
         ].filter(Boolean),
@@ -28,7 +28,7 @@ app.use(cors({
         process.env.WHATSAPP_LARAVEL_URL,
         'https://orbitwaapi.dpdns.org',
         'https://bot.orbitwaapi.dpdns.org',
-        'https://orbit-whatsapp-api.vercel.app',
+        'https://orbitwaapi.site',
         'http://localhost:3000',
         'http://localhost:8000'
     ].filter(Boolean),
