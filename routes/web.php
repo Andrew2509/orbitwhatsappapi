@@ -53,6 +53,9 @@ Route::middleware(['auth', 'user.only'])->group(function () {
     Route::post('/devices/{device}/logout', [DeviceController::class, 'logout'])->name('devices.logout');
     Route::get('/devices/{device}/status', [DeviceController::class, 'status'])->name('devices.status');
 
+    // WhatsApp Service Health Proxy
+    Route::get('/whatsapp/health', [DeviceController::class, 'health'])->name('whatsapp.health');
+
     // Contacts
     Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
     Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');

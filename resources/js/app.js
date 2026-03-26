@@ -40,8 +40,8 @@ window.Alpine = Alpine;
         },
 
         async checkServiceHealth() {
-            // Menggunakan environment Vite jika ada, atau fallback ke Cloudflare Tunnel
-            const baseUrl = import.meta.env.VITE_WHATSAPP_URL || 'https://bot.orbitwaapi.site';
+            // Proxy health check melalui Laravel untuk menghindari CORS
+            const baseUrl = '/whatsapp';
 
             try {
                 const response = await fetch(`${baseUrl}/health`);

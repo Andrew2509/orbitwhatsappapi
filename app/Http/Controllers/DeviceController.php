@@ -138,4 +138,13 @@ class DeviceController extends Controller
             'phone' => $status['phone'] ?? null,
         ]);
     }
+
+    public function health()
+    {
+        $online = $this->whatsApp->healthCheck();
+        return response()->json([
+            'status' => $online ? 'ok' : 'offline',
+            'timestamp' => now()->toIso8601String()
+        ]);
+    }
 }
