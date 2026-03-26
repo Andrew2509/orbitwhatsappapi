@@ -12,7 +12,7 @@ class WhatsAppService
 
     public function __construct()
     {
-        $this->baseUrl = config('services.whatsapp.url', 'https://bot.orbitwaapi.dpdns.org');
+        $this->baseUrl = config('services.whatsapp.url', 'https://bot.orbitwaapi.site');
         $this->secret = config('services.whatsapp.secret', 'secret');
     }
 
@@ -132,7 +132,7 @@ class WhatsAppService
             $response = Http::withHeaders($this->headers())->post("{$this->baseUrl}/message/send", $payload);
 
             $data = $response->json();
-            
+
             Log::info('WhatsApp Service: Received response', [
                 'status' => $response->status(),
                 'body' => $data

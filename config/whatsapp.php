@@ -12,7 +12,7 @@ return [
     */
 
     // Node.js WhatsApp Service URL
-    'service_url' => env('WHATSAPP_SERVICE_URL', 'https://bot.orbitwaapi.dpdns.org'),
+    'service_url' => env('WHATSAPP_SERVICE_URL', 'https://bot.orbitwaapi.site'),
 
     // Secret key for webhook authentication
     'webhook_secret' => env('WHATSAPP_SECRET', 'secret'),

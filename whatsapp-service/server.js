@@ -11,8 +11,8 @@ const io = new Server(server, {
     cors: {
         origin: [
             process.env.WHATSAPP_LARAVEL_URL,
-            'https://orbitwaapi.dpdns.org',
-            'https://bot.orbitwaapi.dpdns.org',
+            'https://orbitwaapi.site',
+            'https://bot.orbitwaapi.site',
             'https://orbitwaapi.site',
             'http://localhost:3000',
             'http://localhost:8000'
@@ -26,8 +26,8 @@ const io = new Server(server, {
 app.use(cors({
     origin: [
         process.env.WHATSAPP_LARAVEL_URL,
-        'https://orbitwaapi.dpdns.org',
-        'https://bot.orbitwaapi.dpdns.org',
+        'https://orbitwaapi.site',
+        'https://bot.orbitwaapi.site',
         'https://orbitwaapi.site',
         'http://localhost:3000',
         'http://localhost:8000'
@@ -62,7 +62,7 @@ app.post('/device/:deviceId/pairing-code', async (req, res) => {
         const { deviceId } = req.params;
         const { phone } = req.body;
         if (!phone) throw new Error('Phone number is required');
-        
+
         const code = await waManager.getPairingCode(deviceId, phone);
         res.json({ success: true, pairingCode: code });
     } catch (error) {

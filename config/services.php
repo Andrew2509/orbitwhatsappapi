@@ -36,7 +36,7 @@ return [
     ],
 
     'whatsapp' => [
-        'url' => env('WHATSAPP_API_URL', 'https://bot.orbitwaapi.dpdns.org'),
+        'url' => env('WHATSAPP_API_URL', 'https://bot.orbitwaapi.site'),
         'secret' => env('WHATSAPP_API_SECRET', 'secret'),
         'admin_number' => env('ADMIN_WHATSAPP_NUMBER'),
         'sender_device_id' => env('WHATSAPP_SENDER_DEVICE_ID'),
