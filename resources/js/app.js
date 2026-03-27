@@ -1,5 +1,6 @@
 import './bootstrap';
 import Alpine from 'alpinejs';
+import { io } from 'socket.io-client';
 
 window.Alpine = Alpine;
 
@@ -34,9 +35,64 @@ window.Alpine = Alpine;
         connected: false,
         serviceOnline: false,
         pollInterval: null,
+        socket: null,
 
         async init() {
             await this.checkServiceHealth();
+            this.initSocket();
+        },
+
+        initSocket() {
+            const serviceUrl = document.querySelector('meta[name="whatsapp-service-url"]')?.getAttribute('content');
+            if (!serviceUrl) return;
+
+            console.log('Alpine: Initializing Socket.IO connection to', serviceUrl);
+            this.socket = io(serviceUrl, {
+                withCredentials: true,
+                transports: ['polling', 'websocket']
+            });
+
+            this.socket.on('connect', () => {
+                console.log('Alpine: Connected to WhatsApp Service Socket.IO');
+            });
+
+            this.socket.on('status', (data) => {
+                console.log('Alpine: Status update received via socket:', data);
+                if (data.deviceId == this.deviceId) {
+                    this.updateStateFromStatus(data.status);
+                }
+            });
+
+            this.socket.on('pairing_code', (data) => {
+                console.log('Alpine: Pairing code received via socket:', data);
+                if (data.deviceId == this.deviceId) {
+                    this.pairingCode = data.pairingCode;
+                }
+            });
+
+            this.socket.on('connected', (data) => {
+                console.log('Alpine: Device connected via socket:', data);
+                if (data.deviceId == this.deviceId) {
+                    this.connected = true;
+                    if (this.pollInterval) clearInterval(this.pollInterval);
+                    setTimeout(() => window.location.reload(), 1500);
+                }
+            });
+
+            this.socket.on('qr', (data) => {
+                console.log('Alpine: QR received via socket');
+                if (data.deviceId == this.deviceId) {
+                    this.qrCode = data.qr;
+                }
+            });
+        },
+
+        updateStateFromStatus(status) {
+            if (status === 'connected') {
+                this.connected = true;
+                if (this.pollInterval) clearInterval(this.pollInterval);
+                setTimeout(() => window.location.reload(), 1500);
+            }
         },
 
         async checkServiceHealth() {
@@ -60,6 +116,10 @@ window.Alpine = Alpine;
             this.phone = '';
             this.pairingCode = null;
             this.connected = false;
+
+            if (this.socket && this.deviceId) {
+                this.socket.emit('subscribe', this.deviceId);
+            }
         },
 
         closeModal() {
@@ -90,7 +150,7 @@ window.Alpine = Alpine;
 
                 const data = await response.json();
                 if (data.device_id) {
-                    this.deviceId = data.device_id;
+                    await this.setDeviceId(data.device_id);
                     this.step = 'method';
                 }
             } catch (e) {
@@ -135,6 +195,7 @@ window.Alpine = Alpine;
                 const data = await response.json();
                 if (data.pairingCode) {
                     this.pairingCode = data.pairingCode;
+                    // Polling as fallback, but Socket.IO is primary now
                     this.startPolling();
                 } else if (data.error) {
                     alert(data.error);
@@ -146,8 +207,16 @@ window.Alpine = Alpine;
             }
         },
 
+        async setDeviceId(id) {
+            this.deviceId = id;
+            if (this.socket) {
+                console.log('Alpine: Subscribing to device', id);
+                this.socket.emit('subscribe', id);
+            }
+        },
+
         async scanDevice(deviceId) {
-            this.deviceId = deviceId;
+            await this.setDeviceId(deviceId);
             this.showAddModal = true;
             this.step = 'method';
             this.qrCode = null;

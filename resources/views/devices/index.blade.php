@@ -281,9 +281,15 @@
                     <div class="text-center">
                         <div class="mb-6">
                             <p class="text-[var(--text-secondary)] mb-4">Enter this code on your phone:</p>
-                            <div class="flex items-center justify-center gap-2">
-                                <template x-for="(char, index) in pairingCode.split('')">
-                                    <div class="w-10 h-14 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl flex items-center justify-center text-2xl font-bold text-emerald-500" x-text="char"></div>
+                            <div class="flex items-center justify-center flex-wrap gap-2">
+                                <template x-for="(char, index) in (pairingCode || '').split('')">
+                                    <div x-show="char !== '-'" 
+                                         class="w-10 h-14 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl flex items-center justify-center text-2xl font-bold text-emerald-500 shadow-sm" 
+                                         x-text="char">
+                                    </div>
+                                    <div x-show="char === '-'" class="flex items-center justify-center text-2xl font-bold text-[var(--text-muted)] mx-1">
+                                        -
+                                    </div>
                                 </template>
                             </div>
                         </div>

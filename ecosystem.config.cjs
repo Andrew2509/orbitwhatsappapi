@@ -8,13 +8,7 @@ const laravelPort = 8000;
 
 module.exports = {
   apps: [
-    {
-      name: 'vite-dev',
-      script: 'node_modules/.bin/vite',
-      cwd: rootDir,
-      watch: false,
-      autorestart: true,
-    },
+    // Remove vite-dev for production (assets should be pre-built)
     {
       name: 'whatsapp-service',
       script: 'bot/server.js',
@@ -66,13 +60,6 @@ module.exports = {
       instances: 1,
       autorestart: true,
     },
-    {
-      name: 'laravel-web',
-      script: 'php',
-      args: `artisan serve --host 0.0.0.0 --port=${laravelPort}`,
-      cwd: rootDir,
-      instances: 1,
-      autorestart: true,
-    }
+    // Remove laravel-web (artisan serve) for production (served via Nginx/FPM)
   ]
 };

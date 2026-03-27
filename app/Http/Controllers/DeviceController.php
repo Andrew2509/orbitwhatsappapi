@@ -113,11 +113,14 @@ class DeviceController extends Controller
             abort(403);
         }
 
-        $request->validate([
-            'phone' => 'required|string',
-        ]);
+        $phone = preg_replace('/\D/', '', $request->phone);
+        
+        // Ensure international format (62...) if it starts with 0
+        if (str_starts_with($phone, '0')) {
+            $phone = '62' . substr($phone, 1);
+        }
 
-        $result = $this->whatsApp->requestPairingCode($device->id, $request->phone);
+        $result = $this->whatsApp->requestPairingCode($device->id, $phone);
 
         return response()->json($result);
     }

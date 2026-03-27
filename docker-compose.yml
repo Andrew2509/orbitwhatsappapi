@@ -1,0 +1,50 @@
+services:
+  app:
+    build: .
+    image: orbit-whatsapp-app:latest
+    container_name: orbit-laravel
+    restart: always
+    environment:
+      APP_ENV: production
+      APP_DEBUG: 'false'
+    volumes:
+      - ./.env:/var/www/html/.env
+      - storage-data:/var/www/html/storage
+    ports:
+      - "8080:80"
+    networks:
+      - orbit-network
+
+  bot:
+    build:
+      context: .
+      dockerfile: bot/Dockerfile
+    image: orbit-whatsapp-bot:latest
+    container_name: orbit-bot
+    restart: always
+    volumes:
+      - ./.env:/usr/src/app/.env
+    ports:
+      - "3001:3001"
+    networks:
+      - orbit-network
+
+  # Queue Workers as separate containers
+  worker:
+    build: .
+    image: orbit-whatsapp-app:latest
+    container_name: orbit-worker
+    restart: always
+    command: php artisan queue:work --queue=high,default,low --tries=3 --timeout=120
+    volumes:
+      - ./.env:/var/www/html/.env
+      - storage-data:/var/www/html/storage
+    networks:
+      - orbit-network
+
+networks:
+  orbit-network:
+    driver: bridge
+
+volumes:
+  storage-data:

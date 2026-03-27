@@ -501,6 +501,10 @@ class WhatsAppManager {
                 throw new Error('WhatsApp service is busy initializing. Please try again in a few seconds.');
             }
 
+            // User recommended delay to ensure socket is ready for pairing
+            console.log(`[${deviceId}] Waiting 3s for socket to stabilize before pairing request...`);
+            await new Promise(resolve => setTimeout(resolve, 3000));
+
             // Create a timeout for the pairing code request itself
             const pairingCodePromise = session.socket.requestPairingCode(cleanPhone);
             const timeoutPromise = new Promise((_, reject) => {
