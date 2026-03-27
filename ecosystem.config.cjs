@@ -4,6 +4,7 @@ const os = require('os');
 const isWindows = os.platform() === 'win32';
 const rootDir = __dirname;
 const cloudflaredPath = isWindows ? 'cloudflared' : '/usr/local/bin/cloudflared';
+const laravelPort = 8000;
 
 module.exports = {
   apps: [
@@ -23,15 +24,6 @@ module.exports = {
       },
       watch: false,
       autorestart: true,
-    },
-    {
-      name: 'cloudflare-tunnel',
-      script: cloudflaredPath,
-      interpreter: 'none',
-      args: 'tunnel run --token eyJhIjoiNjUxMmNlMTFkOWU5ZDc2NmUwMDkzOTgyOGM0Y2U4MDUiLCJ0IjoiMGViZWYyZTMtZjVjZS00ODE5LWJkZDQtY2E0MzY3OGJhZDc1IiwicyI6ImFLeVMxb3hXeVZ0bDZ4T1ROcER4WlkwNEtkRS8yckRoMHo1Q05mNnZ2cG89In0= --protocol http2',
-      cwd: rootDir,
-      autorestart: true,
-      max_restarts: 10,
     },
     // ============================================
     // QUEUE WORKERS - Priority-based message queues
@@ -77,7 +69,7 @@ module.exports = {
     {
       name: 'laravel-web',
       script: 'php',
-      args: 'artisan serve --port=8000',
+      args: `artisan serve --host 0.0.0.0 --port=${laravelPort}`,
       cwd: rootDir,
       instances: 1,
       autorestart: true,
