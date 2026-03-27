@@ -11,7 +11,7 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
-import WhatsAppManager from './src/WhatsAppManager.js';
+import WhatsAppManager from './WhatsAppManager.js';
 
 const app = express();
 const server = http.createServer(app);

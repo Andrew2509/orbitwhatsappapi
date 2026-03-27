@@ -9,7 +9,7 @@ module.exports = {
     },
     {
       name: 'whatsapp-service',
-      script: 'whatsapp-service/server.js',
+      script: 'bot/server.js',
       cwd: './',
       env: {
         NODE_ENV: 'production',

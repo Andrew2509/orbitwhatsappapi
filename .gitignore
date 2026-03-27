@@ -27,7 +27,5 @@ Thumbs.db
 # Hostinger deploy (contains secrets)
 /hostinger/.env.hostinger
 
-# WhatsApp service
-/whatsapp-service/node_modules
-/whatsapp-service/temp-auth*
+# Hostinger
 /hostinger/whatsapp-bot/node_modules

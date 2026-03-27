@@ -5,8 +5,8 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "bot": "cd whatsapp-service && node server.js",
-        "bot-dev": "cd whatsapp-service && nodemon server.js"
+        "bot": "node bot/server.js",
+        "bot-dev": "nodemon bot/server.js"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
