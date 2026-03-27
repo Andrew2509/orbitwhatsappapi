@@ -135,7 +135,11 @@ io.on('connection', (socket) => {
 });
 
 // Start server
-const PORT = process.env.WHATSAPP_PORT || 3001;
+const PORT = parseInt(process.env.WHATSAPP_PORT) || 3005;
+console.log(`Starting WhatsApp Service...`);
+console.log(`Configured PORT: ${PORT}`);
+console.log(`From process.env.WHATSAPP_PORT: ${process.env.WHATSAPP_PORT}`);
+
 server.listen(PORT, '0.0.0.0', async () => {
     console.log(`WhatsApp Service running on port ${PORT}`);
     console.log(`Health check: http://localhost:${PORT}/health`);
