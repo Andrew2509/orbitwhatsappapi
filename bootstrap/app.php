@@ -25,10 +25,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->trustProxies(at: '*');
-        $middleware->prepend(\App\Http\Middleware\ForceHttps::class);
+        // $middleware->prepend(\App\Http\Middleware\ForceHttps::class);
         $middleware->prepend(SetCoopHeader::class);
         $middleware->replace(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class, \App\Http\Middleware\VerifyCsrfToken::class);
-        
+
         $middleware->appendToGroup('web', [
             \App\Http\Middleware\CheckSuspended::class,
         ]);
@@ -50,9 +50,9 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->redirectGuestsTo(fn () => route('login'));
-        $middleware->redirectUsersTo(fn (Request $request) => 
-            $request->user() && in_array($request->user()->role, ['admin', 'super_admin']) 
-                ? route('admin.dashboard') 
+        $middleware->redirectUsersTo(fn (Request $request) =>
+            $request->user() && in_array($request->user()->role, ['admin', 'super_admin'])
+                ? route('admin.dashboard')
                 : route('dashboard')
         );
     })
