@@ -31,10 +31,10 @@ class VerifyCsrfToken extends Middleware
             $this->availableAt(60 * $config['lifetime']),
             $config['path'],
             $config['domain'],
-            $config['secure'],
+            false, // FORCE SECURE FALSE FOR IP ACCESS
             true, // Set HttpOnly to true
             false,
-            $config['same_site'] ?? null,
+            $config['same_site'] ?? 'lax',
             $config['partitioned'] ?? false
         );
     }
