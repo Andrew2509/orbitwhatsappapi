@@ -35,12 +35,12 @@ class SetCoopHeader
                "frame-src 'self' https://www.google.com https://*.firebaseapp.com https://accounts.google.com https://consent.cookiebot.com https://consentcdn.cookiebot.com https://app.sandbox.midtrans.com https://app.midtrans.com https://vercel.live/ https://nativesoft.com https://client.scalar.com https://scalar.com; " .
                "base-uri 'self'; " .
                "form-action 'self' https://app.sandbox.midtrans.com https://app.midtrans.com; " .
-               "frame-ancestors 'none'; " .
-               "upgrade-insecure-requests;";
+               "frame-ancestors 'none'; ";
+               // "upgrade-insecure-requests;";
 
         // Security Headers for PCI & SOC 2 Compliance
         return $response->withHeaders([
-            'Strict-Transport-Security' => 'max-age=63072000; includeSubDomains; preload',
+            // 'Strict-Transport-Security' => 'max-age=63072000; includeSubDomains; preload',
             'X-Frame-Options' => 'SAMEORIGIN',
             'X-Content-Type-Options' => 'nosniff',
             'X-XSS-Protection' => '1; mode=block',
