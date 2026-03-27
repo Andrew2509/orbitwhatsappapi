@@ -3,6 +3,8 @@ FROM php:8.4-fpm-alpine
 # Install system dependencies
 RUN apk add --no-cache \
     nginx \
+    nodejs \
+    npm \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
