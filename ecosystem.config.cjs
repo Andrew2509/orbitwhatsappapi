@@ -1,16 +1,23 @@
+const path = require('path');
+const os = require('os');
+
+const isWindows = os.platform() === 'win32';
+const rootDir = __dirname;
+const cloudflaredPath = isWindows ? 'cloudflared' : '/usr/local/bin/cloudflared';
+
 module.exports = {
   apps: [
     {
       name: 'vite-dev',
       script: 'node_modules/.bin/vite',
-      cwd: 'c:/laragon/www/orbit-whatsapp-api',
+      cwd: rootDir,
       watch: false,
       autorestart: true,
     },
     {
       name: 'whatsapp-service',
       script: 'bot/server.js',
-      cwd: './',
+      cwd: rootDir,
       env: {
         NODE_ENV: 'production',
       },
@@ -19,8 +26,10 @@ module.exports = {
     },
     {
       name: 'cloudflare-tunnel',
-      script: 'cloudflared',
+      script: cloudflaredPath,
+      interpreter: 'none',
       args: 'tunnel run --token eyJhIjoiNjUxMmNlMTFkOWU5ZDc2NmUwMDkzOTgyOGM0Y2U4MDUiLCJ0IjoiMGViZWYyZTMtZjVjZS00ODE5LWJkZDQtY2E0MzY3OGJhZDc1IiwicyI6ImFLeVMxb3hXeVZ0bDZ4T1ROcER4WlkwNEtkRS8yckRoMHo1Q05mNnZ2cG89In0= --protocol http2',
+      cwd: rootDir,
       autorestart: true,
       max_restarts: 10,
     },
@@ -31,7 +40,7 @@ module.exports = {
       name: 'queue-high',
       script: 'php',
       args: 'artisan queue:work --queue=high --tries=2 --timeout=30 --sleep=1',
-      cwd: 'c:/laragon/www/orbit-whatsapp-api',
+      cwd: rootDir,
       instances: 2,
       autorestart: true,
       max_restarts: 10,
@@ -40,7 +49,7 @@ module.exports = {
       name: 'queue-default',
       script: 'php',
       args: 'artisan queue:work --queue=default --tries=3 --timeout=60 --sleep=3',
-      cwd: 'c:/laragon/www/orbit-whatsapp-api',
+      cwd: rootDir,
       instances: 1,
       autorestart: true,
       max_restarts: 10,
@@ -49,7 +58,7 @@ module.exports = {
       name: 'queue-low',
       script: 'php',
       args: 'artisan queue:work --queue=low --tries=3 --timeout=120 --sleep=5',
-      cwd: 'c:/laragon/www/orbit-whatsapp-api',
+      cwd: rootDir,
       instances: 1,
       autorestart: true,
       max_restarts: 10,
@@ -61,10 +70,17 @@ module.exports = {
       name: 'scheduler',
       script: 'php',
       args: 'artisan schedule:work',
-      cwd: 'c:/laragon/www/orbit-whatsapp-api',
+      cwd: rootDir,
+      instances: 1,
+      autorestart: true,
+    },
+    {
+      name: 'laravel-web',
+      script: 'php',
+      args: 'artisan serve --port=8000',
+      cwd: rootDir,
       instances: 1,
       autorestart: true,
     }
   ]
 };
-
