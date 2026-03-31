@@ -1,4 +1,8 @@
-import makeWASocket, { DisconnectReason, useMultiFileAuthState } from '@whiskeysockets/baileys';
+import makeWASocket, { 
+    DisconnectReason, 
+    fetchLatestBaileysVersion, 
+    Browsers 
+} from '@whiskeysockets/baileys';
 import QRCode from 'qrcode';
 import pino from 'pino';
 import fs from 'fs';
@@ -107,11 +111,14 @@ class WhatsAppManager {
 
         const { state, saveCreds, removeSession } = await useMySQLAuthState(deviceId.toString(), this.dbConfig);
 
+        const { version, isLatest } = await fetchLatestBaileysVersion();
+        console.log(`[${deviceId}] Using WA version v${version.join('.')}, isLatest: ${isLatest}`);
+
         const sock = makeWASocket({
+            version,
             auth: state,
             logger: pino({ level: 'warn' }),
-            browser: ['Orbit API', 'Chrome', '114.0.5735.199'],
-            // version: [2, 3000, 1033846690], // Remove hardcoded version to use latest
+            browser: Browsers.ubuntu('Chrome'),
             printQRInTerminal: false
         });
 
