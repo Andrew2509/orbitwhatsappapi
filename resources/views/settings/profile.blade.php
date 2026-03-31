@@ -17,7 +17,7 @@
             <form action="{{ route('settings.avatar.update') }}" method="POST" enctype="multipart/form-data" class="relative group" id="avatarForm">
                 @csrf
                 @if($user->avatar)
-                <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="w-28 h-28 rounded-full object-cover border-4 border-white/30 shadow-xl">
+                <img src="{{ \App\Helpers\ImageHelper::display($user->avatar) }}" alt="Avatar" class="w-28 h-28 rounded-full object-cover border-4 border-white/30 shadow-xl">
                 @else
                 <div class="w-28 h-28 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-4xl font-bold border-4 border-white/30 shadow-xl">
                     {{ strtoupper(substr($user->name ?? 'U', 0, 1)) }}

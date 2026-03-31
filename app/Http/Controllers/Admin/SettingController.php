@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
+use App\Helpers\ImageHelper;
 
 class SettingController extends Controller
 {
@@ -27,8 +28,7 @@ class SettingController extends Controller
         // Handle file uploads
         foreach ($request->files as $key => $file) {
             if ($file->isValid()) {
-                $path = $file->store('settings', 'public');
-                $data[$key] = asset('storage/' . $path);
+                $data[$key] = ImageHelper::fileToBase64($file);
             }
         }
 

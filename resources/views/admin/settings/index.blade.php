@@ -46,7 +46,11 @@
                         <div class="mt-3 p-3 bg-gray-50 dark:bg-slate-900/50 rounded-lg border border-dashed border-gray-200 dark:border-slate-700">
                             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-tight mb-2">Live Preview</p>
                             <div class="flex items-center justify-center p-4 bg-white dark:bg-slate-800 rounded shadow-inner min-h-[60px]">
-                                <img src="{{ $setting->value }}" alt="Preview" class="max-h-12 w-auto object-contain">
+                                @if($setting->type === 'file')
+                                    <img src="{{ \App\Helpers\ImageHelper::display($setting->value, '/Image/logo-wa-api-black.png') }}" alt="Preview" class="max-h-12 w-auto object-contain">
+                                @else
+                                    {{ $setting->value }}
+                                @endif
                             </div>
                         </div>
                         @endif

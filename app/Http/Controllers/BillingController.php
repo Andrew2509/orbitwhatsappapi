@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\ImageHelper;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 
@@ -175,11 +176,11 @@ class BillingController extends Controller
             'payment_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // Store file
-        $path = $request->file('payment_proof')->store('payment-proofs', 'public');
+        // Convert to Base64 (Store directly in DB)
+        $base64 = ImageHelper::fileToBase64($request->file('payment_proof'));
 
         $invoice->update([
-            'payment_proof' => $path,
+            'payment_proof' => $base64,
         ]);
 
         // Send WhatsApp Notification to Admin
@@ -191,8 +192,8 @@ class BillingController extends Controller
                 /** @var \App\Services\WhatsAppService $whatsappService */
                 $whatsappService = app(\App\Services\WhatsAppService::class);
 
-                // Use absolute local path to avoid network/SSL issues in Node service
-                $imageUrl = Storage::disk('public')->path($path);
+                // Use Base64 directly for WhatsApp Media
+                $imageUrl = $base64;
 
                 $message = "*BUKTI PEMBAYARAN BARU*\n";
                 $message .= "Invoice: #{$invoice->invoice_number}\n";

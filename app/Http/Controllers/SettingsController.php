@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\ImageHelper;
 use Illuminate\Validation\Rules\Password;
 use Jenssegers\Agent\Agent;
 
@@ -80,14 +81,9 @@ class SettingsController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        // Delete old avatar if exists
-        if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
-            Storage::disk('public')->delete($user->avatar);
-        }
-
-        // Store new avatar
-        $path = $request->file('avatar')->store('avatars', 'public');
-        $user->update(['avatar' => $path]);
+        // Convert to Base64 (Store directly in DB)
+        $base64 = ImageHelper::fileToBase64($request->file('avatar'));
+        $user->update(['avatar' => $base64]);
 
         return redirect()->route('settings.profile')
             ->with('success', 'Foto profile berhasil diperbarui!');

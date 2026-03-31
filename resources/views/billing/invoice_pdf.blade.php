@@ -93,7 +93,12 @@
         @if($invoice->payment_proof)
         <div style="margin-top: 30px; page-break-inside: avoid;">
             <h3>Payment Proof</h3>
-            <img src="{{ storage_path('app/public/' . str_replace('storage/', '', $invoice->payment_proof)) }}" style="max-width: 300px; border: 1px solid #ddd;">
+        @if($invoice->payment_proof)
+            <div style="margin-top: 20px;">
+                <p><strong>Bukti Pembayaran:</strong></p>
+                <img src="{{ $invoice->payment_proof }}" style="max-width: 300px; border: 1px solid #ddd;">
+            </div>
+        @endif
         </div>
         @endif
 
