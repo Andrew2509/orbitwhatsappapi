@@ -106,19 +106,25 @@ class WhatsAppManager {
         // Close existing session if any
         if (this.sessions.has(deviceId)) {
             console.log(`[${deviceId}] Found existing session, closing first...`);
-            await this.disconnectSession(deviceId);
+            await this.disconnectSession(deviceId, true); // true indicates reinit (fast end)
         }
 
         const { state, saveCreds, removeSession } = await useMySQLAuthState(deviceId.toString(), this.dbConfig);
 
-        const { version, isLatest } = await fetchLatestBaileysVersion();
-        console.log(`[${deviceId}] Using WA version v${version.join('.')}, isLatest: ${isLatest}`);
+        let version = [2, 3000, 1015901307]; // Fallback version
+        try {
+            const { version: latestVersion, isLatest } = await fetchLatestBaileysVersion();
+            version = latestVersion;
+            console.log(`[${deviceId}] Using WA version v${version.join('.')}, isLatest: ${isLatest}`);
+        } catch (error) {
+            console.warn(`[${deviceId}] Failed to fetch latest WA version, using fallback:`, error.message);
+        }
 
         const sock = makeWASocket({
             version,
             auth: state,
             logger: pino({ level: 'warn' }),
-            browser: Browsers.ubuntu('Chrome'),
+            browser: Browsers.macOS('Desktop'),
             printQRInTerminal: false
         });
 
@@ -156,11 +162,25 @@ class WhatsAppManager {
             }
 
             if (connection === 'close') {
-                const statusCode = lastDisconnect?.error?.output?.statusCode;
+                const statusCode = lastDisconnect?.error?.output?.statusCode || (lastDisconnect?.error)?.data?.reason;
                 const errorMessage = lastDisconnect?.error?.message;
                 const shouldReconnect = statusCode !== DisconnectReason.loggedOut;
 
                 console.log(`[${deviceId}] Disconnected. Status: ${statusCode}, Message: ${errorMessage}, Reconnect: ${shouldReconnect}`);
+
+                // Special handling for 405 Method Not Allowed / Connection Failure
+                if (statusCode == 405 || statusCode == '405') {
+                    console.error(`[${deviceId}] Critical Connection Failure (405). This usually means the IP is flagged or there is a protocol mismatch. Clearing session...`);
+                    await this.disconnectSession(deviceId, true);
+                    try {
+                        const { removeSession: deleteSession } = await useMySQLAuthState(deviceId.toString(), this.dbConfig);
+                        await deleteSession();
+                    } catch (e) {
+                        console.error(`[${deviceId}] Error clearing session on 405:`, e.message);
+                    }
+                    this.updateSessionStatus(deviceId, 'error_405');
+                    return; // Don't auto-reconnect on 405 to prevent infinite loop
+                }
 
                 // Handle Stream Errored (440) - usually means session is corrupted
                 if (shouldReconnect && (statusCode === 440 || errorMessage === 'Stream Errored')) {
@@ -176,7 +196,8 @@ class WhatsAppManager {
                 }
 
                 if (shouldReconnect) {
-                    await this.initSession(deviceId, userId, name);
+                    console.log(`[${deviceId}] Reconnecting in 5 seconds...`);
+                    setTimeout(() => this.initSession(deviceId, userId, name), 5000);
                 } else {
                     console.log(`[${deviceId}] Permanent disconnect (logged out). Cleaning up...`);
                     this.updateSessionStatus(deviceId, 'disconnected');
@@ -434,19 +455,30 @@ class WhatsAppManager {
         }
     }
 
-    async disconnectSession(id) {
+    async disconnectSession(id, isReinit = false) {
         const deviceId = parseInt(id);
         const session = this.sessions.get(deviceId);
         if (session) {
             try {
-                console.log(`[${deviceId}] Explicitly disconnecting and logging out...`);
-                await session.socket.logout();
+                if (session.socket) {
+                    console.log(`[${deviceId}] Closing socket (isReinit: ${isReinit})...`);
+                    if (!isReinit) {
+                        try {
+                            await session.socket.logout();
+                        } catch (e) {
+                            console.warn(`[${deviceId}] Logout failed or timed out:`, e.message);
+                        }
+                    }
+                    session.socket.end(null);
+                }
                 
-                // useMySQLAuthState's removeSession implementation
-                const { removeSession } = await useMySQLAuthState(deviceId.toString(), this.dbConfig);
-                await removeSession();
+                if (!isReinit) {
+                    // Only remove from DB if it's a real logout/disconnect, not a re-init
+                    const { removeSession } = await useMySQLAuthState(deviceId.toString(), this.dbConfig);
+                    await removeSession();
+                }
             } catch (e) {
-                console.error(`[${deviceId}] Error during logout:`, e.message);
+                console.error(`[${deviceId}] Error during disconnect:`, e.message);
             }
             this.sessions.delete(deviceId);
             this.qrCodes.delete(deviceId);
