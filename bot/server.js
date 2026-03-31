@@ -20,9 +20,10 @@ const io = new Server(server, {
     cors: {
         origin: [
             process.env.WHATSAPP_LARAVEL_URL,
+            'http://76.13.20.150:8080',
+            'http://76.13.20.150',
             'https://orbitwaapi.site',
             'https://bot.orbitwaapi.site',
-            'https://orbitwaapi.site',
             'http://localhost:3000',
             'http://localhost:8000'
         ].filter(Boolean),
@@ -35,9 +36,10 @@ const io = new Server(server, {
 app.use(cors({
     origin: [
         process.env.WHATSAPP_LARAVEL_URL,
+        'http://76.13.20.150:8080',
+        'http://76.13.20.150',
         'https://orbitwaapi.site',
         'https://bot.orbitwaapi.site',
-        'https://orbitwaapi.site',
         'http://localhost:3000',
         'http://localhost:8000'
     ].filter(Boolean),
