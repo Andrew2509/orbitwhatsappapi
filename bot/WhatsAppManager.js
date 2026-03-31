@@ -524,7 +524,12 @@ class WhatsAppManager {
         
         try {
             // Clean phone number (remove non-digits)
-            const cleanPhone = phone.replace(/\D/g, '');
+            let cleanPhone = phone.replace(/\D/g, '');
+            
+            // Normalize leading 0 to 62 (Indonesia)
+            if (cleanPhone.startsWith('0')) {
+                cleanPhone = '62' + cleanPhone.slice(1);
+            }
             
             if (!session.socket) {
                 // Wait for socket to be ready (it might be still initializing in initSession)
