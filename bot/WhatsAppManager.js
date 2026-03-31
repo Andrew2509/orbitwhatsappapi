@@ -124,8 +124,12 @@ class WhatsAppManager {
             version,
             auth: state,
             logger: pino({ level: 'warn' }),
-            browser: Browsers.macOS('Desktop'),
-            printQRInTerminal: false
+            browser: Browsers.ubuntu('Chrome'),
+            printQRInTerminal: false,
+            connectTimeoutMs: 60000,
+            defaultQueryTimeoutMs: 60000,
+            markOnlineOnConnect: true,
+            syncFullHistory: false
         });
 
         console.log(`[${deviceId}] WASocket created, starting listeners...`);
