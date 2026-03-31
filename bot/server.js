@@ -22,8 +22,8 @@ const io = new Server(server, {
             process.env.WHATSAPP_LARAVEL_URL,
             'http://76.13.20.150:8080',
             'http://76.13.20.150',
-            'https://orbitwaapi.site',
-            'https://bot.orbitwaapi.site',
+            'http://orbitwaapi.site:8080',
+            'http://orbitwaapi.site',
             'http://localhost:3000',
             'http://localhost:8000'
         ].filter(Boolean),
@@ -38,8 +38,8 @@ app.use(cors({
         process.env.WHATSAPP_LARAVEL_URL,
         'http://76.13.20.150:8080',
         'http://76.13.20.150',
-        'https://orbitwaapi.site',
-        'https://bot.orbitwaapi.site',
+        'http://orbitwaapi.site:8080',
+        'http://orbitwaapi.site',
         'http://localhost:3000',
         'http://localhost:8000'
     ].filter(Boolean),
