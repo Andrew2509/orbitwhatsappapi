@@ -23,9 +23,7 @@ const io = new Server(server, {
             'http://76.13.20.150:8080',
             'http://76.13.20.150',
             'https://orbitwaapi.site',
-            'https://www.orbitwaapi.site',
-            'http://orbitwaapi.site',
-            'http://orbitwaapi.site:8080',
+            'https://bot.orbitwaapi.site',
             'http://localhost:3000',
             'http://localhost:8000'
         ].filter(Boolean),
@@ -41,9 +39,7 @@ app.use(cors({
         'http://76.13.20.150:8080',
         'http://76.13.20.150',
         'https://orbitwaapi.site',
-        'https://www.orbitwaapi.site',
-        'http://orbitwaapi.site',
-        'http://orbitwaapi.site:8080',
+        'https://bot.orbitwaapi.site',
         'http://localhost:3000',
         'http://localhost:8000'
     ].filter(Boolean),
