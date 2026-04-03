@@ -47,6 +47,10 @@
                         </span>
                     </div>
                     <p class="text-[var(--text-secondary)] mt-1">{{ $device->phone_number ?? 'Not connected' }}</p>
+                    <div class="mt-2 flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[var(--bg-secondary)] border border-[var(--border-color)] w-fit">
+                        <span class="text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-wider">ID:</span>
+                        <span class="text-[11px] font-mono font-medium text-emerald-500">{{ $device->id }}</span>
+                    </div>
                 </div>
             </div>
 
