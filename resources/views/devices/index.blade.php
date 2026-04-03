@@ -265,7 +265,12 @@
                     <form @submit.prevent="getPairingCode()">
                         <div class="mb-6">
                             <label class="form-label">Phone Number</label>
-                            <input type="text" x-model="phone" class="form-input" placeholder="e.g., 628123456789" required>
+                            <input type="tel" x-model="phone" 
+                                   @input="phone = phone.replace(/\D/g, '')"
+                                   inputmode="numeric" 
+                                   pattern="[0-9]*"
+                                   class="form-input" 
+                                   placeholder="e.g., 628123456789" required>
                             <p class="text-xs text-[var(--text-muted)] mt-1">Enter with country code (e.g., 62...)</p>
                         </div>
                         <button type="submit" class="btn btn-primary w-full" :disabled="loading">

@@ -182,6 +182,7 @@ window.Alpine = Alpine;
         async getPairingCode() {
             console.log('Requesting pairing code for device:', this.deviceId);
             this.loading = true;
+            const cleanPhone = this.phone.replace(/\D/g, '');
             try {
                 const response = await fetch(`/devices/${this.deviceId}/pairing-code`, {
                     method: 'POST',
@@ -190,7 +191,7 @@ window.Alpine = Alpine;
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                         'Accept': 'application/json'
                     },
-                    body: JSON.stringify({ phone: this.phone })
+                    body: JSON.stringify({ phone: cleanPhone })
                 });
                 const data = await response.json();
                 if (data.pairingCode) {

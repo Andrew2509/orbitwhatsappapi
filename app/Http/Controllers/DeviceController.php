@@ -115,9 +115,12 @@ class DeviceController extends Controller
 
         $phone = preg_replace('/\D/', '', $request->phone);
         
-        // Ensure international format (62...) if it starts with 0
+        // Handle Indonesian number formats
         if (str_starts_with($phone, '0')) {
             $phone = '62' . substr($phone, 1);
+        } elseif (str_starts_with($phone, '8') && strlen($phone) >= 9 && strlen($phone) <= 13) {
+            // Case where user enters 812xxxx without leading 0 or 62
+            $phone = '62' . $phone;
         }
 
         $result = $this->whatsApp->requestPairingCode($device->id, $phone);
