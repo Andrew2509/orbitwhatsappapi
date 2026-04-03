@@ -197,11 +197,11 @@
                 </p>
                 <div class="grid sm:grid-cols-2 gap-4">
                     <a class="flex items-center p-4 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary transition-colors group"
-                        href="mailto:privacy@orbitapi.com">
+                        href="mailto:privacy@orbitwaapi.site">
                         <span class="material-icons text-gray-400 group-hover:text-primary mr-3">email</span>
                         <div>
                             <div class="text-sm text-text-muted-light dark:text-text-muted-dark">Email</div>
-                            <div class="font-medium text-gray-900 dark:text-white">privacy@orbitapi.com</div>
+                            <div class="font-medium text-gray-900 dark:text-white">privacy@orbitwaapi.site</div>
                         </div>
                     </a>
                     <a class="flex items-center p-4 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary transition-colors group"

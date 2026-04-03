@@ -47,7 +47,7 @@ class SettingController extends Controller
             ['key' => 'site_logo', 'value' => asset('Image/logo-wa-api-black.png'), 'type' => 'file', 'group' => 'branding', 'description' => 'Logo (Dark)'],
             ['key' => 'site_logo_white', 'value' => asset('Image/logo-wa-api-white.png'), 'type' => 'file', 'group' => 'branding', 'description' => 'Logo (Light)'],
             ['key' => 'site_favicon', 'value' => asset('favicon.ico'), 'type' => 'file', 'group' => 'branding', 'description' => 'Favicon'],
-            ['key' => 'support_email', 'value' => 'sales@orbitapi.com', 'type' => 'text', 'group' => 'contact', 'description' => 'Email Support'],
+            ['key' => 'support_email', 'value' => 'sales@orbitwaapi.site', 'type' => 'text', 'group' => 'contact', 'description' => 'Email Support'],
             ['key' => 'support_whatsapp', 'value' => '+62 821-2222-3333', 'type' => 'text', 'group' => 'contact', 'description' => 'WhatsApp Support'],
             ['key' => 'meta_description', 'value' => 'Kirim notifikasi, OTP, dan blast pesan secara otomatis dengan infrastruktur enterprise-grade yang stabil dan aman.', 'type' => 'textarea', 'group' => 'seo', 'description' => 'Meta Description'],
             ['key' => 'footer_text', 'value' => '© 2026 Orbit WhatsApp API. All rights reserved.', 'type' => 'text', 'group' => 'general', 'description' => 'Teks Footer'],

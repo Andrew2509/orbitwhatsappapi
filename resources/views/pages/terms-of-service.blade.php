@@ -156,9 +156,9 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 mt-6 not-prose">
                     <a class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm"
-                        href="mailto:admin@orbitapi.com">
+                        href="mailto:admin@orbitwaapi.site">
                         <span class="material-icons-round mr-2 text-primary">email</span>
-                        admin@orbitapi.com
+                        admin@orbitwaapi.site
                     </a>
                     <a class="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg text-base font-medium text-white bg-primary hover:bg-primary-dark shadow-sm transition-all hover:-translate-y-0.5"
                         href="{{ route('home') }}#contact">

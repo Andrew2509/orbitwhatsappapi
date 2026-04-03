@@ -323,9 +323,9 @@
                                 <p class="text-slate-300 mb-6 max-w-lg mx-auto">Sertakan bukti screenshot dan nomor
                                     pengirim agar tim investigasi kami dapat menindaklanjuti dalam 1x24 jam.</p>
                                 <a class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-slate-900 bg-primary hover:bg-emerald-400 transition-colors"
-                                    href="mailto:admin@orbitapi.com">
+                                    href="mailto:admin@orbitwaapi.site">
                                     <span class="material-icons-round mr-2">email</span>
-                                    admin@orbitapi.com
+                                    admin@orbitwaapi.site
                                 </a>
                             </div>
                         </div>

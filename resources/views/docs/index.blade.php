@@ -181,7 +181,7 @@
                     <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 font-bold text-slate-700 text-sm">Contoh Header HTTP</div>
                     <div class="p-6">
                         <pre class="bg-slate-900 p-6 rounded-2xl text-emerald-400 font-mono text-xs overflow-x-auto leading-loose"><code>GET /v1/devices HTTP/1.1
-Host: api.orbitapi.com
+Host: orbitwaapi.site
 <span class="text-yellow-400">Authorization:</span> Bearer YOUR_SECRET_API_KEY
 Content-Type: application/json</code></pre>
                     </div>

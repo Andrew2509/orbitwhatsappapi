@@ -153,7 +153,7 @@
                                 <div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-amber-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div>
                                 <div class="ml-4 px-3 py-1 bg-white dark:bg-slate-800 rounded text-xs text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 flex-1 text-center font-mono flex justify-between items-center group/url">
                                     <span class="opacity-0 w-4"></span>
-                                    <span>dashboard.orbitapi.com</span>
+                                    <span>dashboard.orbitwaapi.site</span>
                                     <span class="material-icons-round text-[10px] text-green-500 opacity-0 group-hover/url:opacity-100 transition-opacity">lock</span>
                                 </div>
                             </div>
@@ -341,7 +341,7 @@
                             </div>
                             <div>
                                 <p class="text-sm font-bold text-slate-900 dark:text-white">Email Sales</p>
-                                <p class="text-sm text-slate-500">{{ get_setting('support_email', 'sales@orbitapi.com') }}</p>
+                                <p class="text-sm text-slate-500">{{ get_setting('support_email', 'sales@orbitwaapi.site') }}</p>
                             </div>
                         </div>
                         <div class="flex items-center space-x-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-700 group hover:border-primary/30 transition-colors">
