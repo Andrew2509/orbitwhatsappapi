@@ -195,7 +195,7 @@ Content-Type: application/json</code></pre>
                 <!-- AUTH SECTIONS -->
                 <div class="mb-20 space-y-20">
                     <h3 class="text-xl font-bold text-slate-800 border-l-4 border-primary pl-4">Autentikasi & Akun</h3>
-                    
+
                     <section class="scroll-mt-24" id="auth-register">
                         <div class="flex items-center space-x-3 mb-4">
                             <span class="endpoint-badge method-post px-3 py-1 text-sm font-bold rounded-lg shadow-sm">POST</span>
@@ -391,20 +391,20 @@ Content-Type: application/json</code></pre>
                     </div>
                 </div>
 
-                <div id="scalar-container" class="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-xl shadow-slate-200/50 relative">
-                    <button id="fullscreen-btn" class="absolute top-4 right-4 z-[110] bg-white/90 backdrop-blur-sm border border-slate-200 p-2 rounded-xl text-slate-600 hover:text-primary transition-all shadow-lg hover:shadow-xl" title="Penuhi Layar">
-                        <span class="material-icons-round">fullscreen</span>
-                    </button>
-                    <div class="relative w-full overflow-hidden" style="padding-top: 60%;"> <!-- Slightly taller for Scalar -->
-                        <iframe
-                            id="scalar-iframe"
-                            src="https://client.scalar.com/@local/default/document/orbit-whatsapp-api-(fixed)/overview"
-                            class="absolute top-0 left-0 w-full h-full border-0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
+                    <div id="scalar-container" class="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-xl shadow-slate-200/50 relative">
+                        <button id="fullscreen-btn" class="absolute top-4 right-4 z-[110] bg-white/90 backdrop-blur-sm border border-slate-200 p-2 rounded-xl text-slate-600 hover:text-primary transition-all shadow-lg hover:shadow-xl" title="Penuhi Layar">
+                            <span class="material-icons-round">fullscreen</span>
+                        </button>
+                        <div class="relative w-full overflow-hidden" style="padding-top: 60%;"> <!-- Slightly taller for Scalar -->
+                            <iframe
+                                id="scalar-iframe"
+                                src="https://client.scalar.com/@local/default/document/orbit-whatsapp-api-(fixed)/overview"
+                                class="absolute top-0 left-0 w-full h-full border-0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
                     </div>
-                </div>
                 <div class="mt-6 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl text-emerald-800 text-sm flex items-start space-x-3">
                     <span class="material-icons-round text-emerald-500">info</span>
                     <p>Dokumentasi Scalar memberikan antarmuka interaktif yang lebih lengkap untuk mencoba setiap endpoint API kami secara langsung.</p>
