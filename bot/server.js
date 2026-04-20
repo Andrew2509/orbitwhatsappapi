@@ -2,12 +2,17 @@ import './polyfill.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Load .env from project root
-dotenv.config({ path: path.join(__dirname, '..', '.env') });
+// Load .env - try local bot folder first, then project root
+if (fs.existsSync(path.join(__dirname, '.env'))) {
+    dotenv.config({ path: path.join(__dirname, '.env') });
+} else {
+    dotenv.config({ path: path.join(__dirname, '..', '.env') });
+}
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
