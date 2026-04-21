@@ -140,7 +140,7 @@ io.on('connection', (socket) => {
 });
 
 // Start server
-const PORT = parseInt(process.env.WHATSAPP_PORT) || 3005;
+const PORT = process.env.PORT || process.env.WHATSAPP_PORT || 3005;
 console.log(`Starting WhatsApp Service...`);
 console.log(`Configured PORT: ${PORT}`);
 console.log(`From process.env.WHATSAPP_PORT: ${process.env.WHATSAPP_PORT}`);
