@@ -25,7 +25,7 @@ services:
     volumes:
       - ./.env:/usr/src/app/.env
     ports:
-      - "3001:3001"
+      - "3005:3005"
     networks:
       - orbit-network
 

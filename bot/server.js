@@ -26,6 +26,7 @@ const io = new Server(server, {
         origin: [
             process.env.WHATSAPP_LARAVEL_URL,
             'https://orbitwaapi.site',
+            'https://orbitwaapi.site/',
             'https://bot.orbitwaapi.site',
             'http://localhost:3000',
             'http://localhost:8000'
